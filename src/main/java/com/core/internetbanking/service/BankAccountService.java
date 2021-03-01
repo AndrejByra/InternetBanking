@@ -2,6 +2,7 @@ package com.core.internetbanking.service;
 
 import com.core.internetbanking.dto.PaymentDto;
 import com.core.internetbanking.model.BankAccount;
+import org.springframework.http.ResponseEntity;
 
 public interface BankAccountService {
 
@@ -9,14 +10,13 @@ public interface BankAccountService {
 
     Integer getBalanceOfAccount(Integer id);
 
-    void sendAmount(PaymentDto paymentDto);
+    ResponseEntity<String> sendAmount(PaymentDto paymentDto);
 
-    void blockAccount(BankAccount bankAccount);
+    void blockAccount(Integer accountId);
 
-    void unblockAccount(BankAccount bankAccount);
+    void unblockAccount(Integer accountId);
 
-    void setCreditCardStatus(BankAccount bankAccount);
+    void setCreditCardStatus(Integer accountId);
 
-    void setDebitCardStatus(BankAccount bankAccount);
-
+    void setDebitCardStatus(Integer accountId);
 }

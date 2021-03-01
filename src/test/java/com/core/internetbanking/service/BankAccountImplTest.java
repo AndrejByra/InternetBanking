@@ -72,7 +72,7 @@ public class BankAccountImplTest {
         Mockito.when(bankAccountRepository.getOne(1))
                 .thenReturn(bankAccount);
 
-        bankAccountService.blockAccount(bankAccount);
+        bankAccountService.blockAccount(bankAccount.getId());
 
         Mockito.verify(bankAccountRepository, Mockito.times(1)).
                 save(Mockito.any());
@@ -90,7 +90,7 @@ public class BankAccountImplTest {
         Mockito.when(bankAccountRepository.getOne(1))
                 .thenReturn(bankAccount);
 
-        bankAccountService.unblockAccount(bankAccount);
+        bankAccountService.unblockAccount(bankAccount.getId());
 
         Mockito.verify(bankAccountRepository, Mockito.times(1)).
                 save(Mockito.any());
@@ -108,7 +108,7 @@ public class BankAccountImplTest {
         Mockito.when(bankAccountRepository.getOne(1))
                 .thenReturn(bankAccount);
 
-        bankAccountService.setCreditCardStatus(bankAccount);
+        bankAccountService.setCreditCardStatus(bankAccount.getId());
 
         Mockito.verify(bankAccountRepository, Mockito.times(1)).
                 save(Mockito.any());
@@ -125,7 +125,7 @@ public class BankAccountImplTest {
         Mockito.when(bankAccountRepository.getOne(1))
                 .thenReturn(bankAccount);
 
-        bankAccountService.setDebitCardStatus(bankAccount);
+        bankAccountService.setDebitCardStatus(bankAccount.getId());
 
         Mockito.verify(bankAccountRepository, Mockito.times(1)).
                 save(Mockito.any());

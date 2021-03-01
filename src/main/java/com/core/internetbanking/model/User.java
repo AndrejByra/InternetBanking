@@ -1,6 +1,5 @@
 package com.core.internetbanking.model;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;

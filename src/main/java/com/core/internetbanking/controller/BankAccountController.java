@@ -6,6 +6,8 @@ import com.core.internetbanking.model.BankAccount;
 import com.core.internetbanking.repository.BankAccountRepository;
 import com.core.internetbanking.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,29 +31,29 @@ public class BankAccountController {
     }
 
     @PutMapping(path = "/send")
-    public void sendMoney(@RequestBody PaymentDto paymentDto) {
-        bankAccountService.sendAmount(paymentDto);
+    public ResponseEntity<String> sendMoney(@RequestBody PaymentDto paymentDto) {
+        return bankAccountService.sendAmount(paymentDto);
     }
 
     @PutMapping(path = "/blockBankAccount")
-    public void blockBankAccount(@RequestParam BankAccount bankAccount) {
-        bankAccountService.blockAccount(bankAccount);
+    public void blockBankAccount(@RequestParam Integer accountId) {
+        bankAccountService.blockAccount(accountId);
     }
 
     @PutMapping(path = "/unlockBankAccount")
-    public void unlockBankAccount(@RequestParam BankAccount bankAccount) {
-        bankAccountService.unblockAccount(bankAccount);
+    public void unlockBankAccount(@RequestParam Integer accountId) {
+        bankAccountService.unblockAccount(accountId);
     }
 
     @PutMapping(path = "/setStatusToCreditCard")
-    public void setStatusToCreditCard(@RequestParam BankAccount bankAccount) {
-        bankAccountService.setCreditCardStatus(bankAccount);
+    public void setStatusToCreditCard(@RequestParam Integer accountId) {
+        bankAccountService.setCreditCardStatus(accountId);
     }
 
 
     @PutMapping(path = "/setStatusToDebitCard")
-    public void setStatusToDebitCard(@RequestParam BankAccount bankAccount) {
-        bankAccountService.setDebitCardStatus(bankAccount);
+    public void setStatusToDebitCard(@RequestParam Integer accountId) {
+        bankAccountService.setDebitCardStatus(accountId);
     }
 
 
