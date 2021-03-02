@@ -3,7 +3,7 @@ package com.core.internetbanking.controller;
 
 import com.core.internetbanking.dto.PaymentDto;
 import com.core.internetbanking.model.BankAccount;
-import com.core.internetbanking.repository.BankAccountRepository;
+import com.core.internetbanking.service.BackendException;
 import com.core.internetbanking.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +17,6 @@ public class BankAccountController {
     @Autowired
     private BankAccountService bankAccountService;
 
-    @Autowired
-    private BankAccountRepository bankAccountRepository;
 
     @PostMapping
     public BankAccount createBankAccount(@RequestParam Integer accountId, @RequestParam Integer balance) {
@@ -32,7 +30,12 @@ public class BankAccountController {
 
     @PutMapping(path = "/send")
     public ResponseEntity<String> sendMoney(@RequestBody PaymentDto paymentDto) {
-        return bankAccountService.sendAmount(paymentDto);
+        try {
+             bankAccountService.sendAmount(paymentDto);
+        }catch (BackendException backendException){
+            return new ResponseEntity<>(backendException.getMessage(),backendException.getHttpStatus());
+        }
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     @PutMapping(path = "/blockBankAccount")
@@ -49,7 +52,6 @@ public class BankAccountController {
     public void setStatusToCreditCard(@RequestParam Integer accountId) {
         bankAccountService.setCreditCardStatus(accountId);
     }
-
 
     @PutMapping(path = "/setStatusToDebitCard")
     public void setStatusToDebitCard(@RequestParam Integer accountId) {

@@ -8,11 +8,10 @@ import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Component
 public class BankAccountImpl implements BankAccountService {
@@ -46,43 +45,27 @@ public class BankAccountImpl implements BankAccountService {
     }
 
     @Override
-    public ResponseEntity<String> sendAmount(PaymentDto paymentDto) {
-        BankAccount bankAccount;
-        BankAccount bankAccount2;
+    public void sendAmount(PaymentDto paymentDto) {
+        Optional<BankAccount> bankAccount = bankAccountRepository.findById(paymentDto.getAccountId1());
+        Optional<BankAccount> bankAccount2 = bankAccountRepository.findById(paymentDto.getAccountId2());
 
-        try {
-            try {
-                bankAccount = bankAccountRepository.getOne(paymentDto.getAccountId1());
-            } catch (Exception exception) {
-                System.out.println("Invalid Account Id." + paymentDto.getAccountId1());
-                return new ResponseEntity<>("Invalid Account Id " + paymentDto.getAccountId2(), HttpStatus.BAD_REQUEST);
-            }
-
-            try {
-                bankAccount2 = bankAccountRepository.getOne(paymentDto.getAccountId2());
-            } catch (EntityNotFoundException exception) {
-                System.out.println("Invalid Account Id." + paymentDto.getAccountId2());
-                return new ResponseEntity<>("Invalid Account Id " + paymentDto.getAccountId2(), HttpStatus.BAD_REQUEST);
-            }
-
-            if (!bankAccount.isActive()) {
-                System.out.println("Bank Account " + bankAccount.getId() + " is blocked.");
-                return new ResponseEntity<>("Bank Account " + bankAccount.getId() + " is blocked.", HttpStatus.OK);
-            } else if (!bankAccount2.isActive()) {
-                System.out.println("Bank Account " + bankAccount2.getId() + " is blocked");
-                return new ResponseEntity<>("Bank Account " + bankAccount2.getId() + " is blocked", HttpStatus.OK);
-            } else if (!((bankAccount.getBalance() >= paymentDto.getTransferAmount()) || !bankAccount.isDebit())) {
-                System.out.println("Not enough balance in account " + bankAccount.getId());
-                return new ResponseEntity<>("Not enough balance in account " + bankAccount.getId(), HttpStatus.OK);
+        if (bankAccount.isPresent() && bankAccount2.isPresent()) {
+            BankAccount bankAccount1 = bankAccount.get();
+            BankAccount bankAccount3 = bankAccount2.get();
+            if (!bankAccount1.isActive()) {
+                throw new BackendException("Bank Account " + bankAccount1.getId() + " is blocked.", HttpStatus.OK);
+            } else if (!bankAccount3.isActive()) {
+                throw new BackendException("Bank Account " + bankAccount3.getId() + " is blocked", HttpStatus.OK);
+            } else if (!((bankAccount1.getBalance() >= paymentDto.getTransferAmount()) || !bankAccount1.isDebit())) {
+                throw new BackendException("Not enough balance in account " + bankAccount1.getId(), HttpStatus.OK);
             } else {
-                bankAccount.setBalance(bankAccount.getBalance() - paymentDto.getTransferAmount());
-                bankAccount2.setBalance(bankAccount2.getBalance() + paymentDto.getTransferAmount());
-                bankAccountRepository.save(bankAccount);
-                bankAccountRepository.save(bankAccount2);
-                return new ResponseEntity<>("Success", HttpStatus.OK);
+                bankAccount1.setBalance(bankAccount1.getBalance() - paymentDto.getTransferAmount());
+                bankAccount3.setBalance(bankAccount3.getBalance() + paymentDto.getTransferAmount());
+                bankAccountRepository.save(bankAccount1);
+                bankAccountRepository.save(bankAccount3);
             }
-        } catch (Exception exception) {
-            return new ResponseEntity<>("Internal server error.", HttpStatus.valueOf(500));
+        } else {
+            throw new BackendException("Invalid Account Id", HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -6,6 +6,7 @@ import com.core.internetbanking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,13 +17,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(path = "/createUser")
-    public User createNewUser(@RequestBody UserDto userDto) {
+    @PostMapping
+    public Integer createNewUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
-    @GetMapping(path = "/getAllUsers")
-    public Iterable<User> getAllUsers() {
+    @GetMapping
+    public List<User> getAllUsers() {
         return userService.getUsers();
     }
 
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PutMapping
-    public User updateUser(@RequestParam(value = "accountId") Integer accountId, @RequestBody UserDto userDto) {
+    public Integer updateUser(@RequestParam(value = "accountId") Integer accountId, @RequestBody UserDto userDto) {
         return userService.updateUser(accountId, userDto);
     }
 

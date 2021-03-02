@@ -3,16 +3,17 @@ package com.core.internetbanking.service;
 import com.core.internetbanking.dto.UserDto;
 import com.core.internetbanking.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    User createUser(UserDto userDto);
+    Integer createUser(UserDto userDto);
 
-    User updateUser(Integer accountId, UserDto userDto);
+    Integer updateUser(Integer accountId, UserDto userDto);
 
     Optional<User> getUser(Integer accountId);
 
-    Iterable<User> getUsers();
+    List<User> getUsers();
 
     void deleteById(Integer accountId);
 }

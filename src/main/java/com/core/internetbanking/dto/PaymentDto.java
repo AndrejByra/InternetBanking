@@ -6,6 +6,9 @@ public class PaymentDto {
 
     private Integer accountId2;
 
+    /*
+
+     */
     private Integer transferAmount;
 
 

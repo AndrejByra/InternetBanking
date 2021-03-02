@@ -17,25 +17,28 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User createUser(UserDto userDto) {
+    public Integer createUser(UserDto userDto) {
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmailAddress(userDto.getEmailAddress());
         user.setDateOfBirth(userDto.getDateOfBirth());
         user.setPassword(userDto.getPassword());
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user.getAccountId();
+
     }
 
     @Override
-    public User updateUser(Integer accountId, UserDto userDto) {
+    public Integer updateUser(Integer accountId, UserDto userDto) {
         User userToUpdate = userRepository.getOne(accountId);
         userToUpdate.setFirstName(userDto.getFirstName());
         userToUpdate.setLastName(userDto.getLastName());
         userToUpdate.setEmailAddress(userDto.getEmailAddress());
         userToUpdate.setDateOfBirth(userDto.getDateOfBirth());
         userToUpdate.setPassword(userDto.getPassword());
-        return userRepository.save(userToUpdate);
+        userRepository.save(userToUpdate);
+        return userToUpdate.getAccountId();
     }
 
     @Override
