@@ -24,9 +24,7 @@ public class UserServiceImpl implements UserService {
         user.setEmailAddress(userDto.getEmailAddress());
         user.setDateOfBirth(userDto.getDateOfBirth());
         user.setPassword(userDto.getPassword());
-        userRepository.save(user);
-        return user.getAccountId();
-
+        return userRepository.save(user).getAccountId();
     }
 
     @Override
@@ -37,8 +35,7 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setEmailAddress(userDto.getEmailAddress());
         userToUpdate.setDateOfBirth(userDto.getDateOfBirth());
         userToUpdate.setPassword(userDto.getPassword());
-        userRepository.save(userToUpdate);
-        return userToUpdate.getAccountId();
+        return userRepository.save(userToUpdate).getAccountId();
     }
 
     @Override

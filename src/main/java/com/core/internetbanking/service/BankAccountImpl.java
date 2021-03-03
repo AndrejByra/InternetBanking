@@ -46,8 +46,8 @@ public class BankAccountImpl implements BankAccountService {
 
     @Override
     public void sendAmount(PaymentDto paymentDto) {
-        Optional<BankAccount> bankAccount = bankAccountRepository.findById(paymentDto.getAccountId1());
-        Optional<BankAccount> bankAccount2 = bankAccountRepository.findById(paymentDto.getAccountId2());
+        Optional<BankAccount> bankAccount = bankAccountRepository.findById(paymentDto.getTransferFrom());
+        Optional<BankAccount> bankAccount2 = bankAccountRepository.findById(paymentDto.getTransferTo());
 
         if (bankAccount.isPresent() && bankAccount2.isPresent()) {
             BankAccount bankAccount1 = bankAccount.get();
@@ -56,11 +56,11 @@ public class BankAccountImpl implements BankAccountService {
                 throw new BackendException("Bank Account " + bankAccount1.getId() + " is blocked.", HttpStatus.OK);
             } else if (!bankAccount3.isActive()) {
                 throw new BackendException("Bank Account " + bankAccount3.getId() + " is blocked", HttpStatus.OK);
-            } else if (!((bankAccount1.getBalance() >= paymentDto.getTransferAmount()) || !bankAccount1.isDebit())) {
+            } else if (!((bankAccount1.getBalance() >= paymentDto.getAmount()) || !bankAccount1.isDebit())) {
                 throw new BackendException("Not enough balance in account " + bankAccount1.getId(), HttpStatus.OK);
             } else {
-                bankAccount1.setBalance(bankAccount1.getBalance() - paymentDto.getTransferAmount());
-                bankAccount3.setBalance(bankAccount3.getBalance() + paymentDto.getTransferAmount());
+                bankAccount1.setBalance(bankAccount1.getBalance() - paymentDto.getAmount());
+                bankAccount3.setBalance(bankAccount3.getBalance() + paymentDto.getAmount());
                 bankAccountRepository.save(bankAccount1);
                 bankAccountRepository.save(bankAccount3);
             }

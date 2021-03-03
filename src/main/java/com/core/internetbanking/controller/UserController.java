@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
@@ -41,5 +40,4 @@ public class UserController {
     public void deleteByAccountId(@PathVariable Integer accountId) {
         userService.deleteById(accountId);
     }
-
 }

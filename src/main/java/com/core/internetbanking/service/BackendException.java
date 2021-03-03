@@ -3,6 +3,7 @@ package com.core.internetbanking.service;
 import org.springframework.http.HttpStatus;
 
 public class BackendException extends RuntimeException {
+
     private String message;
     private HttpStatus httpStatus;
 
@@ -27,6 +28,4 @@ public class BackendException extends RuntimeException {
     public void setHttpStatus(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
     }
-
-
 }

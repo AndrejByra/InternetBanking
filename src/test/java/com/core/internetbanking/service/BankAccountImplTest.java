@@ -136,7 +136,7 @@ public class BankAccountImplTest {
 
         BankAccount bankAccount = new BankAccount();
         bankAccount.setBalance(22);
-        BankAccount bankAccount2 =  new BankAccount();
+        BankAccount bankAccount2 = new BankAccount();
         bankAccount2.setBalance(11);
 
         Mockito.when(bankAccountRepository.getOne(1))
@@ -156,6 +156,5 @@ public class BankAccountImplTest {
 
         Mockito.verify(bankAccountRepository, Mockito.times(2)).
                 save(Mockito.any());
-
     }
 }

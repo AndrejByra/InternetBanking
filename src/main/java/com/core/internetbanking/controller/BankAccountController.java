@@ -1,6 +1,5 @@
 package com.core.internetbanking.controller;
 
-
 import com.core.internetbanking.dto.PaymentDto;
 import com.core.internetbanking.model.BankAccount;
 import com.core.internetbanking.service.BackendException;
@@ -17,7 +16,6 @@ public class BankAccountController {
     @Autowired
     private BankAccountService bankAccountService;
 
-
     @PostMapping
     public BankAccount createBankAccount(@RequestParam Integer accountId, @RequestParam Integer balance) {
         return bankAccountService.createAccount(accountId, balance);
@@ -31,9 +29,9 @@ public class BankAccountController {
     @PutMapping(path = "/send")
     public ResponseEntity<String> sendMoney(@RequestBody PaymentDto paymentDto) {
         try {
-             bankAccountService.sendAmount(paymentDto);
-        }catch (BackendException backendException){
-            return new ResponseEntity<>(backendException.getMessage(),backendException.getHttpStatus());
+            bankAccountService.sendAmount(paymentDto);
+        } catch (BackendException backendException) {
+            return new ResponseEntity<>(backendException.getMessage(), backendException.getHttpStatus());
         }
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
@@ -57,6 +55,4 @@ public class BankAccountController {
     public void setStatusToDebitCard(@RequestParam Integer accountId) {
         bankAccountService.setDebitCardStatus(accountId);
     }
-
-
 }
