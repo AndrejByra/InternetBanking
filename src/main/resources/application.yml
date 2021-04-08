@@ -1,11 +1,7 @@
 spring:
-  jpa:
-    database: MYSQL
-    hibernate:
-    ddl-auto: update
-
   datasource:
-      url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/internet_banking
-
-  username: root
-  password: root
+    url: jdbc:mysql://mysql-db2:3306/internetbanking?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    platform: mysql
+    initialization-mode: always
