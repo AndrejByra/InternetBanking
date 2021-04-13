@@ -24,12 +24,11 @@ services:
       - db
     environment:
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: mukit
+      SPRING_DATASOURCE_PASSWORD: root
 
 
   #service 3: definition of your spring-boot app
-  customerservice:
-    image: internetbanking
+  internetbanking:
     container_name: internetbanking-app
     build:
       context: .
@@ -40,7 +39,3 @@ services:
 
     depends_on:
       - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db2:3306/internetbanking?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root

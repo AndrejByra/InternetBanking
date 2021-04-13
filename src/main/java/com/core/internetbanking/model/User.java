@@ -5,20 +5,27 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+@Table(name = "Users")
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
 
+    @Column(name = "firstName")
     private String firstName;
 
+    @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "emailAddress")
     private String emailAddress;
 
+    @Column(name = "dateOfBirth")
     private String dateOfBirth;
 
+    @Column(name = "password")
     private String password;
 
     @OneToMany(mappedBy = "user")

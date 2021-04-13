@@ -3,5 +3,9 @@ spring:
     url: jdbc:mysql://mysql-db2:3306/internetbanking?createDatabaseIfNotExist=true
     username: root
     password: root
-    platform: mysql
-    initialization-mode: always
+
+  jpa:
+    show-sql: true
+    hibernate:
+      generate-ddl: true
+      ddl-auto: create-drop

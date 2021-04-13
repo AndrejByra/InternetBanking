@@ -6,18 +6,24 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "BankAccount")
 public class BankAccount implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "balance")
     private Integer balance;
 
+    @Column(name = "iban")
     private String iban;
 
+    @Column(name = "isActive")
     private boolean isActive = true;
 
+    @Column(name = "isDebit")
     private boolean isDebit = true;
 
     @JsonIgnore
