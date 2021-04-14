@@ -9,12 +9,21 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class BankAccountImplTest {
+
+    @Configuration
+    @ComponentScan("my.package")
+    public static class MyTestConfig {
+    }
 
     @InjectMocks
     private BankAccountService bankAccountService = new BankAccountImpl();
