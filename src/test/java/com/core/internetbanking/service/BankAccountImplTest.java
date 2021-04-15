@@ -1,6 +1,5 @@
 package com.core.internetbanking.service;
 
-import com.core.internetbanking.controller.BankAccountController;
 import com.core.internetbanking.model.BankAccount;
 import com.core.internetbanking.model.User;
 import com.core.internetbanking.repository.BankAccountRepository;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BankAccountImplTest {
+class BankAccountImplTest {
 
     @Configuration
     @ComponentScan("my.package")
@@ -27,9 +26,6 @@ public class BankAccountImplTest {
 
     @InjectMocks
     private BankAccountService bankAccountService = new BankAccountImpl();
-
-    @InjectMocks
-    private BankAccountController bankAccountController = new BankAccountController();
 
     @Mock
     UserRepository userRepository;

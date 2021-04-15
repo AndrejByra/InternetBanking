@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public class BackendException extends RuntimeException {
 
-    private String message;
-    private HttpStatus httpStatus;
+    private final String message;
+    private final HttpStatus httpStatus;
 
     public BackendException(String message, HttpStatus httpStatus) {
         this.message = message;
@@ -17,15 +17,7 @@ public class BackendException extends RuntimeException {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public HttpStatus getHttpStatus() {
         return httpStatus;
-    }
-
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
     }
 }
