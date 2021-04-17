@@ -28,7 +28,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<BankAccount> bankAccount;
 
     public Set<BankAccount> getBankAccount() {
