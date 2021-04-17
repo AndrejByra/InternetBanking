@@ -8,5 +8,5 @@
 # Database
     MYSQL on port 3306:3306
     jdbc:mysql://ib-db:3306/internetbanking
-#phpMyAdmin
+# phpMyAdmin
     http://localhost:8082/
