@@ -1,5 +1,5 @@
 # Internet Banking application
-    Internet Banking app to: create user, update user, delete user, create bank account for user, transfer money between user's accounts, get balance of bank account, block and unblock bank account and set status of bank account to debit or credit Card.
+    Application to create user, update user, delete user, create bank account for user, transfer money between user's accounts, get balance of bank account, block and unblock bank account and set status of bank account to debit or credit Card.
 # Docker
     docker-compose up
     docker-compose down
